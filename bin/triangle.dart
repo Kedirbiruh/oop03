@@ -8,7 +8,7 @@ enum MeasurementSystem {
 
   final double factorToMm; 
   const MeasurementSystem(this.factorToMm);}
-  
+
 
 class Triangle {
   double _widthInMm;
@@ -19,21 +19,23 @@ class Triangle {
 
   Triangle._internal(this._widthInMm, this._heightInMm, this.measurementSystem);
 
+  factory Triangle.mm(double width, double height) =>
+    Triangle._internal(width, height, MeasurementSystem.mm);
 
   factory Triangle.cm(double width, double height) =>
-    Triangle._internal(width * 10, height * 10, MeasurementSystem.cm);
+    Triangle._internal(width, height, MeasurementSystem.cm);
 
   factory Triangle.dm(double width, double height) =>
-    Triangle._internal(width * 100, height * 100, MeasurementSystem.dm);
+    Triangle._internal(width, height, MeasurementSystem.dm);
 
   factory Triangle.m(double width, double height) =>
-    Triangle._internal(width * 1000, height * 1000, MeasurementSystem.m);
+    Triangle._internal(width, height, MeasurementSystem.m);
 
   factory Triangle.inch(double width, double height) =>
-    Triangle._internal(width * 25.4, height * 10, MeasurementSystem.inch);
+    Triangle._internal(width, height, MeasurementSystem.inch);
 
   factory Triangle.feet(double width, double height) =>
-    Triangle._internal(width * 304.8, height * 10, MeasurementSystem.feet);
+    Triangle._internal(width, height, MeasurementSystem.feet);
 
 
 
