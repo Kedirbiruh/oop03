@@ -1,4 +1,14 @@
-enum MeasurementSystem { mm, cm, dm, m, inch, feet }
+enum MeasurementSystem {
+  mm(1.0),
+  cm(10.0),
+  dm(100.0),
+  m(1000.0),
+  inch(25.4),
+  feet(304.8);
+
+  final double factorToMm; 
+  const MeasurementSystem(this.factorToMm);}
+  
 
 class Triangle {
   double _widthInMm;
