@@ -68,6 +68,13 @@ class Triangle {
   double areaIn(MeasurementSystem system) =>
       areaInMm2 / (system.mmPerUnit * system.mmPerUnit);
 
+      double _validate(double value) {
+  if (value < 0) {
+    throw ArgumentError('Wert darf nicht negativ sein: $value');
+  }
+  return value;
+}
+
   // ---- Getter und Setter für Breite -----
 
   double get widthInMm => _widthInMm;
@@ -77,26 +84,26 @@ class Triangle {
   set widthInCm(double v) =>
       _widthInMm = MeasurementSystem.cm.toMm(_validate(v));
 
-  double get widthIndm => MeasurementSystem.dm.fromMm(_widthInMm);
-  set widthIndm(double v) =>
+  double get widthInDm => MeasurementSystem.dm.fromMm(_widthInMm);
+  set widthInDm(double v) =>
       _widthInMm = MeasurementSystem.dm.toMm(_validate(v));
 
-  double get widthInm => MeasurementSystem.m.fromMm(_widthInMm);
-  set widthInm(double v) => _widthInMm = MeasurementSystem.m.toMm(_validate(v));
+  double get widthInMeters => MeasurementSystem.m.fromMm(_widthInMm);
+  set widthInMeters(double v) => _widthInMm = MeasurementSystem.m.toMm(_validate(v));
 
   double get widthInch => MeasurementSystem.inch.fromMm(_widthInMm);
   set widthInch(double v) =>
       _widthInMm = MeasurementSystem.inch.toMm(_validate(v));
-  double get widthfeet => MeasurementSystem.feet.fromMm(_widthInMm);
-  set widthfeet(double v) =>
+  double get widthInfeet => MeasurementSystem.feet.fromMm(_widthInMm);
+  set widthInfeet(double v) =>
       _widthInMm = MeasurementSystem.feet.toMm(_validate(v));
 
   // ---- Getter und Setter für Höhe
 
   double get heightInMm => _heightInMm;
-  set heightInMm(double mm) => _heightInMm = _validate(mm)
+  set heightInMm(double mm) => _heightInMm = _validate(mm);
 
-    double get heightCm => MeasurementSystem.cm.fromMm(_heightInMm);
+    double get heightInCm => MeasurementSystem.cm.fromMm(_heightInMm);
   set heightInCm(double v) =>
       _heightInMm = MeasurementSystem.cm.toMm(_validate(v));
 
@@ -104,24 +111,22 @@ class Triangle {
   set heightIndm(double v) =>
       _heightInMm = MeasurementSystem.dm.toMm(_validate(v));
 
-  double get heightInm => MeasurementSystem.m.fromMm(_heightInMm);
-  set heightInm(double v) => 
+  double get heightInMeters => MeasurementSystem.m.fromMm(_heightInMm);
+  set heightInMeters(double v) => 
       _heightInMm = MeasurementSystem.m.toMm(_validate(v));
 
   double get heightInch => MeasurementSystem.inch.fromMm(_heightInMm);
   set heightInch(double v) =>
       _heightInMm = MeasurementSystem.inch.toMm(_validate(v));
       
-      double get heightfeet => MeasurementSystem.feet.fromMm(_heightInMm);
-  set heightfeet(double v) =>
+      double get heightInfeet => MeasurementSystem.feet.fromMm(_heightInMm);
+  set heightInfeet(double v) =>
       _heightInMm = MeasurementSystem.feet.toMm(_validate(v));
-
-
 
 
   @override
   String toString() {
     return 'Triangle(width: ${_widthInMm.toStringAsFixed(2)} mm, height: ${_heightInMm.toStringAsFixed(2)} mm,'
-        'createdWith: $createdWith, area: ${areaInMm2.toStringAsFixed(2)} mm²';
+        'createdWith: $createdWith, area: ${areaInMm2.toStringAsFixed(2)} mm²)';
   }
 }
