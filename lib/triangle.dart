@@ -9,7 +9,9 @@ enum MeasurementSystem {
   final double mmPerUnit;
   const MeasurementSystem(this.mmPerUnit);
 
+    // Umrechnung: beliebiger Wert → mm--------Alle Umrechnungen laufen nur hier über die Enum.
   double toMm(double value) => value * mmPerUnit;
+    // Umrechnung: mm → Wert in dieser Einheit......später z. B. 1 Inch ändern willst → nur hier ändern.
   double fromMm(double mm) => mm / mmPerUnit;
 }
 
@@ -18,8 +20,10 @@ class Triangle {
   double _heightInMm;
   final MeasurementSystem createdWith;
 
+    // privater interner Konstruktor
   Triangle._internal(this._widthInMm, this._heightInMm, this.createdWith);
 
+    // Factory-Konstruktoren für alle Einheiten
   factory Triangle.mm(double width, double height) => Triangle._internal(
     MeasurementSystem.mm.toMm(width),
     MeasurementSystem.mm.toMm(height),
@@ -56,6 +60,7 @@ class Triangle {
     MeasurementSystem.feet,
   );
 
+  // allgemeiner Konstruktor mit beliebigem MeasurementSystem
   factory Triangle.from(
     double width,
     double height,
@@ -65,15 +70,10 @@ class Triangle {
   // area in mm2
   double get areaInMm2 => 0.5 * _widthInMm * _heightInMm;
 
+    // Fläche in beliebigem System
   double areaIn(MeasurementSystem system) =>
       areaInMm2 / (system.mmPerUnit * system.mmPerUnit);
 
-      double _validate(double value) {
-  if (value < 0) {
-    throw ArgumentError('Wert darf nicht negativ sein: $value');
-  }
-  return value;
-}
 
   // ---- Getter und Setter für Breite -----
 
@@ -115,14 +115,21 @@ class Triangle {
   set heightInMeters(double v) => 
       _heightInMm = MeasurementSystem.m.toMm(_validate(v));
 
-  double get heightInch => MeasurementSystem.inch.fromMm(_heightInMm);
-  set heightInch(double v) =>
+  double get heightInInch => MeasurementSystem.inch.fromMm(_heightInMm);
+  set heightInInch(double v) =>
       _heightInMm = MeasurementSystem.inch.toMm(_validate(v));
       
       double get heightInfeet => MeasurementSystem.feet.fromMm(_heightInMm);
   set heightInfeet(double v) =>
       _heightInMm = MeasurementSystem.feet.toMm(_validate(v));
 
+          // Validierung: keine negativen Werte
+      double _validate(double value) {
+  if (value < 0) {
+    throw ArgumentError('Wert darf nicht negativ sein: $value');
+  }
+  return value;
+}
 
   @override
   String toString() {
